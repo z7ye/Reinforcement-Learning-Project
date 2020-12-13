@@ -214,6 +214,7 @@ def run_ensemble_strategy(df, STOCK_DIM, unique_trade_date, rebalance_window, va
         ## validation env
         validation = data_split(df, start=unique_trade_date[i - rebalance_window - validation_window],
                                 end=unique_trade_date[i - rebalance_window])
+        print('validation.head(1)',validation.head(1).values)
         env_val = DummyVecEnv([lambda: StockEnvValidation(validation, STOCK_DIM,
                                             turbulence_threshold=turbulence_threshold,
                                             iteration=i)])
