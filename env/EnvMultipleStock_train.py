@@ -34,7 +34,7 @@ class StockEnvTrain(gym.Env):
         # Shape = 181: [Current Balance]+[prices 1-30]+[owned shares 1-30] 
         # +[macd 1-30]+ [rsi 1-30] + [cci 1-30] + [adx 1-30]
         
-        self.observation_space = spaces.Box(low=0, high=np.inf, shape = (1+6*(self.STOCK_DIM-1),))
+        self.observation_space = spaces.Box(low=0, high=np.inf, shape = (1+6*self.STOCK_DIM,))
         # load data from a pandas dataframe
         self.data = self.df.loc[self.day,:]
         self.terminal = False             
