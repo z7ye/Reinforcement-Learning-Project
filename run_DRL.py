@@ -20,6 +20,7 @@ def run_model() -> None:
     # if os.path.exists(preprocessed_path):
     #     data = pd.read_csv(preprocessed_path, index_col=0)
     # else:
+
     data = preprocess_data()
     data = add_turbulence(data)
     # data.to_csv(preprocessed_path)

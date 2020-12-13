@@ -42,7 +42,7 @@ class StockEnvValidation(gym.Env):
         self.turbulence_threshold = turbulence_threshold
         # initalize state
         self.state = [INITIAL_ACCOUNT_BALANCE] + \
-                      self.data.adjcp.values.tolist() + \
+                      self.data.close.values.tolist() + \
                       [0]*STOCK_DIM + \
                       self.data.macd.values.tolist() + \
                       self.data.rsi.values.tolist() + \
@@ -175,7 +175,7 @@ class StockEnvValidation(gym.Env):
             #load next state
             # print("stock_shares:{}".format(self.state[29:]))
             self.state =  [self.state[0]] + \
-                    self.data.adjcp.values.tolist() + \
+                    self.data.close.values.tolist() + \
                     list(self.state[(STOCK_DIM+1):(STOCK_DIM*2+1)]) + \
                     self.data.macd.values.tolist() + \
                     self.data.rsi.values.tolist() + \
@@ -207,7 +207,7 @@ class StockEnvValidation(gym.Env):
         self.rewards_memory = []
         #initiate state
         self.state = [INITIAL_ACCOUNT_BALANCE] + \
-                      self.data.adjcp.values.tolist() + \
+                      self.data.close.values.tolist() + \
                       [0]*STOCK_DIM + \
                       self.data.macd.values.tolist() + \
                       self.data.rsi.values.tolist()  + \

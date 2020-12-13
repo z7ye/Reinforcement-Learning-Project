@@ -18,6 +18,7 @@ def load_dataset(*, file_path: str) -> pd.DataFrame:
 #         file_path = 
 #         #'/Users/ziqunye/Documents/stanford/project/Reinforcement-Learning-Project/preprocessing/Stocks'
     abs_path = '/home/scpdxcs/Reinforcement-Learning-Project/ETFs'
+    
     # print(glob.glob(os.path.join(abs_path, file_path, '*.txt')))
     data_list = []
     for filename in glob.glob(os.path.join(abs_path, file_path, '*.txt')):
@@ -58,7 +59,7 @@ def add_technical_indicator(df):
     """
     stock = Sdf.retype(df.copy())
 
-    # stock['close'] = stock['adjcp']
+    # stock['close'] = stock['close']
     unique_ticker = stock.tic.unique()
 
     macd = pd.DataFrame()
