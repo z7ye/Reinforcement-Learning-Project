@@ -31,6 +31,7 @@ def load_dataset(*, file_path: str) -> pd.DataFrame:
         
         if int(df['Date'].iloc[0].replace('-','')) <= 20090102:
             # global STOCK_DIM
+            print(ticker)
             df['ticker'] = ticker 
             df['market'] = market
             df['product_type'] = product_type
