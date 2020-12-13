@@ -39,7 +39,7 @@ def load_dataset(*, file_path: str) -> pd.DataFrame:
             data_list.append(df)
 
     STOCK_DIM = len(data_list)
-
+    print(tickers)
     df_all = pd.concat(data_list, axis=0)
     df_all.columns = ['datadate', 'open', 'high', 'low', 'close', 'volume', 
                   'openint', 'tic', 'market', 'product_type']
