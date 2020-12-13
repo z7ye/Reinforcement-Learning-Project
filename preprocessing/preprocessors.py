@@ -20,7 +20,7 @@ def load_dataset(*, file_path: str) -> pd.DataFrame:
     # abs_path = '/Users/ziqunye/Documents/stanford/project/Reinforcement-Learning-Project/data/'
     abs_path = '/home/scpdxcs/Reinforcement-Learning-Project/ETFs'
     
-    print(os.path.join(abs_path, file_path, '*.txt'))
+
     data_list = []
     STOCK_DIM = 0
     for filename in glob.glob(os.path.join(abs_path, file_path, '*.txt')):

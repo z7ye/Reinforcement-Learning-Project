@@ -214,7 +214,7 @@ class StockEnvValidation(gym.Env):
                       self.data.rsi.values.tolist()  + \
                       self.data.cci.values.tolist()  + \
                       self.data.adx.values.tolist() 
-            
+        print(len(self.state))
         return self.state
     
     def render(self, mode='human',close=False):
