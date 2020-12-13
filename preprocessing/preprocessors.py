@@ -22,6 +22,7 @@ def load_dataset(*, file_path: str) -> pd.DataFrame:
     
 
     data_list = []
+    tickers=[]
     for filename in glob.glob(os.path.join(abs_path, file_path, '*.txt')):
         ticker = os.path.basename(filename).split('.')[0]
         market = os.path.basename(filename).split('.')[1]
@@ -31,11 +32,13 @@ def load_dataset(*, file_path: str) -> pd.DataFrame:
         
         if int(df['Date'].iloc[0].replace('-','')) <= 20090102:
             # global STOCK_DIM
-            print(ticker)
+            # print(ticker)
+            tickers.append(ticker)
             df['ticker'] = ticker 
             df['market'] = market
             df['product_type'] = product_type
             data_list.append(df)
+    print(tickers)
     STOCK_DIM = len(data_list)
     print(STOCK_DIM)
     df_all = pd.concat(data_list, axis=0)
