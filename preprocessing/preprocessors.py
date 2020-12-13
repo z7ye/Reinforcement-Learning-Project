@@ -16,26 +16,35 @@ def load_dataset(*, file_path: str) -> pd.DataFrame:
 #         file_path = 'ETFs'
 #         #'/Users/ziqunye/Documents/stanford/project/Reinforcement-Learning-Project/preprocessing/ETFs'
 #         file_path = 
-#         #'/Users/ziqunye/Documents/stanford/project/Reinforcement-Learning-Project/preprocessing/Stocks'
-    abs_path = '/home/scpdxcs/Reinforcement-Learning-Project/ETFs'
+    abs_path = '/Users/ziqunye/Documents/stanford/project/Reinforcement-Learning-Project/ETFs/'
+    # abs_path = '/Users/ziqunye/Documents/stanford/project/Reinforcement-Learning-Project/data/'
+    # abs_path = '/home/scpdxcs/Reinforcement-Learning-Project/ETFs'
     
-    # print(glob.glob(os.path.join(abs_path, file_path, '*.txt')))
+    print(os.path.join(abs_path, file_path, '*.txt'))
     data_list = []
+    STOCK_DIM = 0
     for filename in glob.glob(os.path.join(abs_path, file_path, '*.txt')):
         ticker = os.path.basename(filename).split('.')[0]
         market = os.path.basename(filename).split('.')[1]
         product_type = 'ETFs'#os.path.basename(filename).split('.')[2]
         df = pd.read_csv(filename, ',')
-        df['ticker'] = ticker 
-        df['market'] = market
-        df['product_type'] = product_type
-        data_list.append(df)
+        print(df['Date'].iloc[0])
+        
+        if int(df['Date'].iloc[0].replace('-','')) <= 20090102:
+            # global STOCK_DIM
+            STOCK_DIM += 1
+            print('STOCK_DIM_preprocess', STOCK_DIM)
+            df['ticker'] = ticker 
+            df['market'] = market
+            df['product_type'] = product_type
+            data_list.append(df)
 
     df_all = pd.concat(data_list, axis=0)
     df_all.columns = ['datadate', 'open', 'high', 'low', 'close', 'volume', 
                   'openint', 'tic', 'market', 'product_type']
     df_all['datadate'] = df_all['datadate'].apply(lambda x: int(x.replace('-', '')))
-    return df_all
+    print(df_all.shape)
+    return df_all, STOCK_DIM
 
 def data_split(df,start,end):
     """
@@ -99,16 +108,20 @@ def add_technical_indicator(df):
 def preprocess_data():
     """data preprocessing pipeline"""
 
-    df = load_dataset(file_path='ETF30')
+    df, STOCK_DIM = load_dataset(file_path='ETF30')
+    print('-----------------')
+    print(df.shape)
+    print('-----------------')
     # get data after 2009
     df = df[df.datadate>=20090000]
     # calcualte adjusted price
     df_preprocess = df#calcualte_price(df)
     # add technical indicators using stockstats
     df_final=add_technical_indicator(df_preprocess)
+    print(df)
     # fill the missing values at the beginning
     df_final.fillna(method='bfill',inplace=True)
-    return df_final
+    return df_final, STOCK_DIM
 
 def add_turbulence(df):
     """

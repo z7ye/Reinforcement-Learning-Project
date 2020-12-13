@@ -100,6 +100,7 @@ def train_GAIL(env_train, model_name, timesteps=1000):
 
 
 def DRL_prediction(df,
+                   STOCK_DIM,
                    model,
                    name,
                    last_state,
@@ -113,6 +114,7 @@ def DRL_prediction(df,
     ## trading env
     trade_data = data_split(df, start=unique_trade_date[iter_num - rebalance_window], end=unique_trade_date[iter_num])
     env_trade = DummyVecEnv([lambda: StockEnvTrade(trade_data,
+                                                   STOCK_DIM,
                                                    turbulence_threshold=turbulence_threshold,
                                                    initial=initial,
                                                    previous_state=last_state,
@@ -149,7 +151,7 @@ def get_validation_sharpe(iteration):
     return sharpe
 
 
-def run_ensemble_strategy(df, unique_trade_date, rebalance_window, validation_window) -> None:
+def run_ensemble_strategy(df, STOCK_DIM, unique_trade_date, rebalance_window, validation_window) -> None:
     """Ensemble Strategy that combines PPO, A2C and DDPG"""
     print("============Start Ensemble Strategy============")
     # for ensemble model, it's necessary to feed the last state
@@ -207,14 +209,15 @@ def run_ensemble_strategy(df, unique_trade_date, rebalance_window, validation_wi
         ############## Environment Setup starts ##############
         ## training env
         train = data_split(df, start=20090000, end=unique_trade_date[i - rebalance_window - validation_window])
-        env_train = DummyVecEnv([lambda: StockEnvTrain(train)])
+        env_train = DummyVecEnv([lambda: StockEnvTrain(train, STOCK_DIM)])
 
         ## validation env
         validation = data_split(df, start=unique_trade_date[i - rebalance_window - validation_window],
                                 end=unique_trade_date[i - rebalance_window])
-        env_val = DummyVecEnv([lambda: StockEnvValidation(validation,
-                                                          turbulence_threshold=turbulence_threshold,
-                                                          iteration=i)])
+        env_val = DummyVecEnv([lambda: StockEnvValidation(validation, STOCK_DIM,
+                                            turbulence_threshold=turbulence_threshold,
+                                            iteration=i)])
+   
         obs_val = env_val.reset()
         ############## Environment Setup ends ##############
 
@@ -267,7 +270,7 @@ def run_ensemble_strategy(df, unique_trade_date, rebalance_window, validation_wi
         print("======Trading from: ", unique_trade_date[i - rebalance_window], "to ", unique_trade_date[i])
         # print("Used Model: ", model_ensemble)
 
-        last_state_ensemble = DRL_prediction(df=df, model=model_ensemble, name="ensemble",
+        last_state_ensemble = DRL_prediction(df=df, STOCK_DIM=STOCK_DIM, model=model_ensemble, name="ensemble",
                                              last_state=last_state_ensemble, iter_num=i,
                                              unique_trade_date=unique_trade_date,
                                              rebalance_window=rebalance_window,
