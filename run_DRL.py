@@ -22,7 +22,7 @@ def run_model() -> None:
     # else:
     data = preprocess_data()
     data = add_turbulence(data)
-    data.to_csv(preprocessed_path)
+    # data.to_csv(preprocessed_path)
 
     print(data.head())
     print(data.size)
