@@ -28,9 +28,8 @@ def load_dataset(*, file_path: str) -> pd.DataFrame:
         market = os.path.basename(filename).split('.')[1]
         product_type = 'ETFs'#os.path.basename(filename).split('.')[2]
         df = pd.read_csv(filename, ',')
-        print(df['Date'].iloc[0])
         
-        if int(df['Date'].iloc[0].replace('-','')) <= 20090102:
+        if int(df['Date'].iloc[0].replace('-','')) <= 20090102 and int(df['Date'].iloc[-1].replace('-','')) >= 20171110:
             # global STOCK_DIM
             # print(ticker)
             tickers.append(ticker)
@@ -38,9 +37,9 @@ def load_dataset(*, file_path: str) -> pd.DataFrame:
             df['market'] = market
             df['product_type'] = product_type
             data_list.append(df)
-    print(tickers)
+
     STOCK_DIM = len(data_list)
-    print(STOCK_DIM)
+
     df_all = pd.concat(data_list, axis=0)
     df_all.columns = ['datadate', 'open', 'high', 'low', 'close', 'volume', 
                   'openint', 'tic', 'market', 'product_type']
@@ -111,16 +110,13 @@ def preprocess_data():
     """data preprocessing pipeline"""
 
     df, STOCK_DIM = load_dataset(file_path='ETF30')
-    print('-----------------')
-    print(df.shape)
-    print('-----------------')
+
     # get data after 2009
     df = df[df.datadate>=20090000]
     # calcualte adjusted price
     df_preprocess = df#calcualte_price(df)
     # add technical indicators using stockstats
     df_final=add_technical_indicator(df_preprocess)
-    print(df)
     # fill the missing values at the beginning
     df_final.fillna(method='bfill',inplace=True)
     return df_final, STOCK_DIM
