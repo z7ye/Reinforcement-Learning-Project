@@ -23,9 +23,12 @@ def run_model() -> None:
     #     print(preprocessed_path)
     #     print('-------------')
     #     data = pd.read_csv(preprocessed_path, index_col=0)
+    #     data = data[~data.tic.isin(['adra', 'adrd', 'adru', 'afk'])]
     # else:
-    data, STOCK_DIM = preprocess_data()
     
+    data, STOCK_DIM = preprocess_data()
+    # data = data[~data.tic.isin(['adra', 'adrd', 'adru', 'afk'])]
+
     data = add_turbulence(data)
     data.to_csv(preprocessed_path)
 

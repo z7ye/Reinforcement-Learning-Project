@@ -27,9 +27,10 @@ from env.EnvMultipleStock_trade import StockEnvTrade
 
 def train_A2C(env_train, model_name, timesteps=25000):
     """A2C model"""
-
+    
     start = time.time()
     model = A2C('MlpPolicy', env_train, verbose=0)
+   
     model.learn(total_timesteps=timesteps)
     end = time.time()
 

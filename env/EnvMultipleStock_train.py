@@ -191,15 +191,15 @@ class StockEnvTrain(gym.Env):
                       self.data.cci.values.tolist() + \
                       self.data.adx.values.tolist() 
         # iteration += 1 
-        print('train')
-        print(len(self.state))
-        print(np.unique(self.data.tic.values))
-        print('self.STOCK_DIM', self.STOCK_DIM)
-        print('self.data.close.values.tolist()', len(self.data.close.values.tolist()))
-        print('self.data.macd.values.tolist()', len(self.data.macd.values.tolist()))
-        print('self.data.rsi.values.tolist()', len(self.data.rsi.values.tolist()))
-        print('self.data.cci.values.tolist()', len(self.data.cci.values.tolist()))
-        print('self.data.adx.values.tolist()', len(self.data.adx.values.tolist()))
+        # print('train')
+        # print(len(self.state))
+        # print(np.unique(self.data.tic.values))
+        # print('self.STOCK_DIM', self.STOCK_DIM)
+        # print('self.data.close.values.tolist()', len(self.data.close.values.tolist()))
+        # print('self.data.macd.values.tolist()', len(self.data.macd.values.tolist()))
+        # print('self.data.rsi.values.tolist()', len(self.data.rsi.values.tolist()))
+        # print('self.data.cci.values.tolist()', len(self.data.cci.values.tolist()))
+        # print('self.data.adx.values.tolist()', len(self.data.adx.values.tolist()))
         return self.state
     
     def render(self, mode='human'):

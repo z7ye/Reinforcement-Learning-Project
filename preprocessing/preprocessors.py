@@ -17,7 +17,7 @@ def load_dataset(*, file_path: str) -> pd.DataFrame:
 #         #'/Users/ziqunye/Documents/stanford/project/Reinforcement-Learning-Project/preprocessing/ETFs'
 #         file_path = 
 
-    # abs_path = '/Users/ziqunye/Documents/stanford/project/Reinforcement-Learning-Project/data/'
+    # abs_path = '/Users/ziqunye/Documents/stanford/project/Reinforcement-Learning-Project/ETFs/'
     abs_path = '/home/scpdxcs/Reinforcement-Learning-Project/ETFs'
     
 
@@ -28,8 +28,12 @@ def load_dataset(*, file_path: str) -> pd.DataFrame:
         market = os.path.basename(filename).split('.')[1]
         product_type = 'ETFs'#os.path.basename(filename).split('.')[2]
         df = pd.read_csv(filename, ',')
-        
-        if int(df['Date'].iloc[0].replace('-','')) <= 20090102 and int(df['Date'].iloc[-1].replace('-','')) >= 20171110:
+        start = 20090102
+        end = 20171110
+        df = df[(df['Date'].apply(lambda x: int(x.replace('-', ''))) >= start) & (df['Date'].apply(lambda x: int(x.replace('-', ''))) <= end)]
+
+        if int(df['Date'].iloc[0].replace('-','')) <= start and \
+            int(df['Date'].iloc[-1].replace('-','')) >= end and len(df) >= 2231:
             # global STOCK_DIM
             # print(ticker)
             tickers.append(ticker)
