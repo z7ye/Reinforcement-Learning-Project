@@ -214,6 +214,7 @@ class StockEnvValidation(gym.Env):
                       self.data.rsi.values.tolist()  + \
                       self.data.cci.values.tolist()  + \
                       self.data.adx.values.tolist() 
+        print('Validation')
         print(len(self.state))
         print(np.unique(self.data.tic.values))
         print('self.STOCK_DIM', self.STOCK_DIM)
