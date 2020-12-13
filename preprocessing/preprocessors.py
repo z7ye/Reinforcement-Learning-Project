@@ -16,9 +16,9 @@ def load_dataset(*, file_path: str) -> pd.DataFrame:
 #         file_path = 'ETFs'
 #         #'/Users/ziqunye/Documents/stanford/project/Reinforcement-Learning-Project/preprocessing/ETFs'
 #         file_path = 
-    abs_path = '/Users/ziqunye/Documents/stanford/project/Reinforcement-Learning-Project/ETFs/'
+
     # abs_path = '/Users/ziqunye/Documents/stanford/project/Reinforcement-Learning-Project/data/'
-    # abs_path = '/home/scpdxcs/Reinforcement-Learning-Project/ETFs'
+    abs_path = '/home/scpdxcs/Reinforcement-Learning-Project/ETFs'
     
     print(os.path.join(abs_path, file_path, '*.txt'))
     data_list = []
