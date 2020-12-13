@@ -17,7 +17,7 @@ def load_dataset(*, file_path: str) -> pd.DataFrame:
 #         #'/Users/ziqunye/Documents/stanford/project/Reinforcement-Learning-Project/preprocessing/ETFs'
 #         file_path = 
 #         #'/Users/ziqunye/Documents/stanford/project/Reinforcement-Learning-Project/preprocessing/Stocks'
-    abs_path = '/data/'
+    abs_path = '/home/scpdxcs/Reinforcement-Learning-Project/ETFs'
     # print(glob.glob(os.path.join(abs_path, file_path, '*.txt')))
     data_list = []
     for filename in glob.glob(os.path.join(abs_path, file_path, '*.txt')):
@@ -98,7 +98,7 @@ def add_technical_indicator(df):
 def preprocess_data():
     """data preprocessing pipeline"""
 
-    df = load_dataset(file_path='ETFs')
+    df = load_dataset(file_path='ETF30')
     # get data after 2009
     df = df[df.datadate>=20090000]
     # calcualte adjusted price
