@@ -113,7 +113,7 @@ def add_technical_indicator(df):
 def preprocess_data():
     """data preprocessing pipeline"""
 
-    df, STOCK_DIM = load_dataset(file_path='ETF110')
+    df, STOCK_DIM = load_dataset(file_path='ETF50')
 
     # get data after 2009
     df = df[df.datadate>=20090000]
