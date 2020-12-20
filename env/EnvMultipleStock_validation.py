@@ -117,31 +117,31 @@ class StockEnvValidation(gym.Env):
 
         if self.terminal:
             plt.plot(self.asset_memory,'r')
-            plt.savefig('results/account_value_validation_{}.png'.format(self.iteration))
+            plt.savefig('results/etf30_account_value_validation_{}.png'.format(self.iteration))
             plt.close()
             df_total_value = pd.DataFrame(self.asset_memory)
-            df_total_value.to_csv('results/account_value_validation_{}.csv'.format(self.iteration))
+            df_total_value.to_csv('results/etf30_account_value_validation_{}.csv'.format(self.iteration))
             end_total_asset = self.state[0]+ \
             sum(np.array(self.state[1:(self.STOCK_DIM+1)])*np.array(self.state[(self.STOCK_DIM+1):(self.STOCK_DIM*2+1)]))
-            #print("previous_total_asset:{}".format(self.asset_memory[0]))           
+            print("previous_total_asset:{}".format(self.asset_memory[0]))           
 
-            #print("end_total_asset:{}".format(end_total_asset))
-            #print("total_reward:{}".format(self.state[0]+sum(np.array(self.state[1:(STOCK_DIM+1)])*np.array(self.state[(STOCK_DIM+1):61]))- self.asset_memory[0] ))
-            #print("total_cost: ", self.cost)
-            #print("total trades: ", self.trades)
+            print("end_total_asset:{}".format(end_total_asset))
+            print("total_reward:{}".format(self.state[0]+sum(np.array(self.state[1:(STOCK_DIM+1)])*np.array(self.state[(STOCK_DIM+1):61]))- self.asset_memory[0] ))
+            print("total_cost: ", self.cost)
+            print("total trades: ", self.trades)
 
             df_total_value.columns = ['account_value']
             df_total_value['daily_return']=df_total_value.pct_change(1)
             sharpe = (4**0.5)*df_total_value['daily_return'].mean()/ \
                   df_total_value['daily_return'].std()
-            #print("Sharpe: ",sharpe)
+            print("Sharpe: ",sharpe)
             
-            #df_rewards = pd.DataFrame(self.rewards_memory)
-            #df_rewards.to_csv('results/account_rewards_trade_{}.csv'.format(self.iteration))
+            df_rewards = pd.DataFrame(self.rewards_memory)
+            df_rewards.to_csv('results/etf30_account_rewards_trade_{}.csv'.format(self.iteration))
             
-            # print('total asset: {}'.format(self.state[0]+ sum(np.array(self.state[1:29])*np.array(self.state[29:]))))
-            #with open('obs.pkl', 'wb') as f:  
-            #    pickle.dump(self.state, f)
+            print('total asset: {}'.format(self.state[0]+ sum(np.array(self.state[1:29])*np.array(self.state[29:]))))
+            with open('etf30_valid_obs.pkl', 'wb') as f:  
+               pickle.dump(self.state, f)
             
             return self.state, self.reward, self.terminal,{}
 
@@ -214,15 +214,6 @@ class StockEnvValidation(gym.Env):
                       self.data.rsi.values.tolist()  + \
                       self.data.cci.values.tolist()  + \
                       self.data.adx.values.tolist() 
-        # print('Validation')
-        # print(len(self.state))
-        # print(np.unique(self.data.tic.values))
-        # print('self.STOCK_DIM', self.STOCK_DIM)
-        # print('self.data.close.values.tolist()', len(self.data.close.values.tolist()))
-        # print('self.data.macd.values.tolist()', len(self.data.macd.values.tolist()))
-        # print('self.data.rsi.values.tolist()', len(self.data.rsi.values.tolist()))
-        # print('self.data.cci.values.tolist()', len(self.data.cci.values.tolist()))
-        # print('self.data.adx.values.tolist()', len(self.data.adx.values.tolist()))
         return self.state
     
     def render(self, mode='human',close=False):

@@ -270,26 +270,26 @@ def run_ensemble_strategy(df, STOCK_DIM, unique_trade_date, rebalance_window, va
             sharpe_ddpg_rolling_mean_3 =  (ddpg_sharpe_list[-1] + ddpg_sharpe_list[-2] + ddpg_sharpe_list[-3])/3
             
         # Model Selection based on sharpe ratio
-        if (sharpe_ppo_rolling_mean_3 >= sharpe_a2c_rolling_mean_3) & (sharpe_ppo_rolling_mean_3 >= sharpe_ddpg_rolling_mean_3):
-            model_ensemble = model_ppo
-            model_use.append('PPO')
-        elif (sharpe_a2c_rolling_mean_3 > sharpe_ppo_rolling_mean_3) & (sharpe_a2c_rolling_mean_3 > sharpe_ddpg_rolling_mean_3):
-            model_ensemble = model_a2c
-            model_use.append('A2C')
-        else:
-            model_ensemble = model_ddpg
-            model_use.append('DDPG')
-        
-        # # Model Selection based on sharpe ratio
-        # if (sharpe_ppo >= sharpe_a2c) & (sharpe_ppo >= sharpe_ddpg):
+        # if (sharpe_ppo_rolling_mean_3 >= sharpe_a2c_rolling_mean_3) & (sharpe_ppo_rolling_mean_3 >= sharpe_ddpg_rolling_mean_3):
         #     model_ensemble = model_ppo
         #     model_use.append('PPO')
-        # elif (sharpe_a2c > sharpe_ppo) & (sharpe_a2c > sharpe_ddpg):
+        # elif (sharpe_a2c_rolling_mean_3 > sharpe_ppo_rolling_mean_3) & (sharpe_a2c_rolling_mean_3 > sharpe_ddpg_rolling_mean_3):
         #     model_ensemble = model_a2c
         #     model_use.append('A2C')
         # else:
         #     model_ensemble = model_ddpg
         #     model_use.append('DDPG')
+        
+        # Model Selection based on sharpe ratio
+        if (sharpe_ppo >= sharpe_a2c) & (sharpe_ppo >= sharpe_ddpg):
+            model_ensemble = model_ppo
+            model_use.append('PPO')
+        elif (sharpe_a2c > sharpe_ppo) & (sharpe_a2c > sharpe_ddpg):
+            model_ensemble = model_a2c
+            model_use.append('A2C')
+        else:
+            model_ensemble = model_ddpg
+            model_use.append('DDPG')
         ############## Training and Validation ends ##############
 
         ############# Trading starts ##############
