@@ -256,18 +256,18 @@ def run_ensemble_strategy(df, STOCK_DIM, unique_trade_date, rebalance_window, va
         a2c_sharpe_list.append(sharpe_a2c)
         ddpg_sharpe_list.append(sharpe_ddpg)
         
-        if len(ppo_sharpe_list) == 1:
-            sharpe_ppo_rolling_mean_3 =  ppo_sharpe_list[0]
-            sharpe_a2c_rolling_mean_3 =  a2c_sharpe_list[0]
-            sharpe_ddpg_rolling_mean_3 =  ddpg_sharpe_list[0]
-        elif len(ppo_sharpe_list) == 2:
-            sharpe_ppo_rolling_mean_3 =  (ppo_sharpe_list[0] + ppo_sharpe_list[1])/2
-            sharpe_a2c_rolling_mean_3 =  (a2c_sharpe_list[0] + a2c_sharpe_list[1])/2
-            sharpe_ddpg_rolling_mean_3 =  (ddpg_sharpe_list[0] + ddpg_sharpe_list[1])/2
-        else:
-            sharpe_ppo_rolling_mean_3 =  (ppo_sharpe_list[-1] + ppo_sharpe_list[-2] + ppo_sharpe_list[-3])/3
-            sharpe_a2c_rolling_mean_3 =  (a2c_sharpe_list[-1] + a2c_sharpe_list[-2] + a2c_sharpe_list[-3])/3
-            sharpe_ddpg_rolling_mean_3 =  (ddpg_sharpe_list[-1] + ddpg_sharpe_list[-2] + ddpg_sharpe_list[-3])/3
+        # if len(ppo_sharpe_list) == 1:
+        #     sharpe_ppo_rolling_mean_3 =  ppo_sharpe_list[0]
+        #     sharpe_a2c_rolling_mean_3 =  a2c_sharpe_list[0]
+        #     sharpe_ddpg_rolling_mean_3 =  ddpg_sharpe_list[0]
+        # elif len(ppo_sharpe_list) == 2:
+        #     sharpe_ppo_rolling_mean_3 =  (ppo_sharpe_list[0] + ppo_sharpe_list[1])/2
+        #     sharpe_a2c_rolling_mean_3 =  (a2c_sharpe_list[0] + a2c_sharpe_list[1])/2
+        #     sharpe_ddpg_rolling_mean_3 =  (ddpg_sharpe_list[0] + ddpg_sharpe_list[1])/2
+        # else:
+        #     sharpe_ppo_rolling_mean_3 =  (ppo_sharpe_list[-1] + ppo_sharpe_list[-2] + ppo_sharpe_list[-3])/3
+        #     sharpe_a2c_rolling_mean_3 =  (a2c_sharpe_list[-1] + a2c_sharpe_list[-2] + a2c_sharpe_list[-3])/3
+        #     sharpe_ddpg_rolling_mean_3 =  (ddpg_sharpe_list[-1] + ddpg_sharpe_list[-2] + ddpg_sharpe_list[-3])/3
             
         # Model Selection based on sharpe ratio
         # if (sharpe_ppo_rolling_mean_3 >= sharpe_a2c_rolling_mean_3) & (sharpe_ppo_rolling_mean_3 >= sharpe_ddpg_rolling_mean_3):
@@ -304,6 +304,9 @@ def run_ensemble_strategy(df, STOCK_DIM, unique_trade_date, rebalance_window, va
                                              initial=initial)
         print("============Trading Done============")
         ############# Trading ends ##############
-
+    import pandas as pd
+    pd.DataFrame({'ppo_sharpe_list': ppo_sharpe_list,
+        'a2c_sharpe_list': a2c_sharpe_list,
+        'ddpg_sharpe_list': a2c_sharpe_list}).to_csv('results/etf30_sharp_ratio.csv')
     end = time.time()
     print("Ensemble Strategy took: ", (end - start) / 60, " minutes")

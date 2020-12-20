@@ -139,9 +139,9 @@ class StockEnvValidation(gym.Env):
             df_rewards = pd.DataFrame(self.rewards_memory)
             df_rewards.to_csv('results/etf30_account_rewards_trade_{}.csv'.format(self.iteration))
             
-            print('total asset: {}'.format(self.state[0]+ sum(np.array(self.state[1:29])*np.array(self.state[29:]))))
-            with open('etf30_valid_obs.pkl', 'wb') as f:  
-               pickle.dump(self.state, f)
+            # print('total asset: {}'.format(self.state[0]+ sum(np.array(self.state[1:29])*np.array(self.state[29:]))))
+            # with open('etf30_valid_obs.pkl', 'wb') as f:  
+            #    pickle.dump(self.state, f)
             
             return self.state, self.reward, self.terminal,{}
 
