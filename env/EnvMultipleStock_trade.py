@@ -119,10 +119,10 @@ class StockEnvTrade(gym.Env):
 
         if self.terminal:
             plt.plot(self.asset_memory,'r')
-            plt.savefig('results/etf30_account_value_trade_{}_{}.png'.format(self.model_name, self.iteration))
+            plt.savefig('results/etf50_account_value_trade_{}_{}.png'.format(self.model_name, self.iteration))
             plt.close()
             df_total_value = pd.DataFrame(self.asset_memory)
-            df_total_value.to_csv('results/etf30_account_value_trade_{}_{}.csv'.format(self.model_name, self.iteration))
+            df_total_value.to_csv('results/etf50_account_value_trade_{}_{}.csv'.format(self.model_name, self.iteration))
             
             end_total_asset = self.state[0]+ \
             sum(np.array(self.state[1:(self.STOCK_DIM+1)])*np.array(self.state[(self.STOCK_DIM+1):(self.STOCK_DIM*2+1)]))
@@ -140,10 +140,10 @@ class StockEnvTrade(gym.Env):
             print("Sharpe: ",sharpe)
             
             df_rewards = pd.DataFrame(self.rewards_memory)
-            df_rewards.to_csv('results/etf30_account_rewards_trade_{}_{}.csv'.format(self.model_name, self.iteration))
+            df_rewards.to_csv('results/etf50_account_rewards_trade_{}_{}.csv'.format(self.model_name, self.iteration))
             
             # print('total asset: {}'.format(self.state[0]+ sum(np.array(self.state[1:29])*np.array(self.state[29:]))))
-            # with open('etf30_trade_obs.pkl', 'wb') as f:  
+            # with open('etf50_trade_obs.pkl', 'wb') as f:  
             #    pickle.dump(self.state, f)
             
             return self.state, self.reward, self.terminal,{}
