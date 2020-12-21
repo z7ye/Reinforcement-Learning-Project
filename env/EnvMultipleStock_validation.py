@@ -117,10 +117,10 @@ class StockEnvValidation(gym.Env):
 
         if self.terminal:
             plt.plot(self.asset_memory,'r')
-            plt.savefig('results/etf50_account_value_validation_{}.png'.format(self.iteration))
+            plt.savefig('results/etf_70account_value_validation_{}.png'.format(self.iteration))
             plt.close()
             df_total_value = pd.DataFrame(self.asset_memory)
-            df_total_value.to_csv('results/etf50_account_value_validation_{}.csv'.format(self.iteration))
+            df_total_value.to_csv('results/etf_70account_value_validation_{}.csv'.format(self.iteration))
             end_total_asset = self.state[0]+ \
             sum(np.array(self.state[1:(self.STOCK_DIM+1)])*np.array(self.state[(self.STOCK_DIM+1):(self.STOCK_DIM*2+1)]))
             print("previous_total_asset:{}".format(self.asset_memory[0]))           
@@ -137,10 +137,10 @@ class StockEnvValidation(gym.Env):
             print("Sharpe: ",sharpe)
             
             df_rewards = pd.DataFrame(self.rewards_memory)
-            df_rewards.to_csv('results/etf50_account_rewards_trade_{}.csv'.format(self.iteration))
+            df_rewards.to_csv('results/etf_70account_rewards_trade_{}.csv'.format(self.iteration))
             
             # print('total asset: {}'.format(self.state[0]+ sum(np.array(self.state[1:29])*np.array(self.state[29:]))))
-            # with open('etf50_valid_obs.pkl', 'wb') as f:  
+            # with open('etf_70valid_obs.pkl', 'wb') as f:  
             #    pickle.dump(self.state, f)
             
             return self.state, self.reward, self.terminal,{}

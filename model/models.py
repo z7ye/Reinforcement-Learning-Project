@@ -307,6 +307,6 @@ def run_ensemble_strategy(df, STOCK_DIM, unique_trade_date, rebalance_window, va
     import pandas as pd
     pd.DataFrame({'ppo_sharpe_list': ppo_sharpe_list,
         'a2c_sharpe_list': a2c_sharpe_list,
-        'ddpg_sharpe_list': a2c_sharpe_list}).to_csv('results/etf50_sharp_ratio.csv')
+        'ddpg_sharpe_list': a2c_sharpe_list}).to_csv('results/etf_70sharp_ratio.csv')
     end = time.time()
     print("Ensemble Strategy took: ", (end - start) / 60, " minutes")

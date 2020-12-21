@@ -95,7 +95,7 @@ class StockEnvTrain(gym.Env):
 
         if self.terminal:
             plt.plot(self.asset_memory,'r')
-            plt.savefig('results/etf50_account_value_train.png')
+            plt.savefig('results/etf_70account_value_train.png')
             plt.close()
             # import pdb
             # pdb.set_trace()
@@ -104,7 +104,7 @@ class StockEnvTrain(gym.Env):
             
             #print("end_total_asset:{}".format(end_total_asset))
             df_total_value = pd.DataFrame(self.asset_memory)
-            df_total_value.to_csv('results/etf50_account_value_train.csv')
+            df_total_value.to_csv('results/etf_70account_value_train.csv')
             # print("total_reward:{}".format(self.state[0]+sum(np.array(self.state[1:(self.STOCK_DIM+1)])*np.array(self.state[(self.STOCK_DIM+1):61]))- INITIAL_ACCOUNT_BALANCE ))
             #print("total_cost: ", self.cost)
             #print("total_trades: ", self.trades)
@@ -115,10 +115,10 @@ class StockEnvTrain(gym.Env):
             #print("Sharpe: ",sharpe)
             #print("=================================")
             df_rewards = pd.DataFrame(self.rewards_memory)
-            df_rewards.to_csv('results/etf50_account_rewards_train.csv')
+            df_rewards.to_csv('results/etf_70account_rewards_train.csv')
             
             # print('total asset: {}'.format(self.state[0]+ sum(np.array(self.state[1:29])*np.array(self.state[29:]))))
-            # with open('etf50_train_obs.pkl', 'wb') as f:  
+            # with open('etf_70train_obs.pkl', 'wb') as f:  
             #    pickle.dump(self.state, f)
             
             return self.state, self.reward, self.terminal,{}
